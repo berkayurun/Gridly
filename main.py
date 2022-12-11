@@ -4,6 +4,7 @@ import image
 import config
 from album import Album
 from artist import Artist
+from song import Song
 
 
 def get_json_string(response):
@@ -24,11 +25,11 @@ def create_save_collage(lastfmObjectArray):
 def main():
     albums = Album.get_albums_of_year()
     artists = Artist.get_artists_of_year()
-
+    songs = Song.get_songs_of_year()
 
     create_save_collage(albums)
     create_save_collage(artists)
-
+    create_save_collage(songs)
 
 
 main()

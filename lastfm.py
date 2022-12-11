@@ -21,6 +21,7 @@ class LastfmObject:
 
     def download_picture(self):
         r = requests.get(self.picture_link, allow_redirects=True)
+        print(f"URL: {self.picture_link}")
         open(f"./cache/{self.name}.jpg", "wb").write(r.content)
 
     def delete_picture(self):
@@ -33,4 +34,4 @@ class LastfmObject:
             "https://ws.audioscrobbler.com/2.0/",
             headers=headers,
             params=parameters
-            )
+        )
