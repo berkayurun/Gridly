@@ -1,20 +1,44 @@
-import os
 from lastfm import LastfmObject
-import requests
+import config
 
+API_KEY = config.API_KEY
+USER = config.USER
 
 class Album(LastfmObject):
-    def __init__(self, artist_name, listen_count, picture_link, album_name):
-        super().__init__(artist_name, listen_count, picture_link)
-        self.album_name = album_name
+    def __init__(self, name, listen_count, picture_link, artist_name):
+        super().__init__(name, listen_count, picture_link)
+        self.artist_name = artist_name
 
     def print(self):
-        print(f"Album Name: {self.album_name}")
         super().print()
+        print(f"Artist Name: {self.artist_name}")
 
-    def download_picture(self):
-        r = requests.get(self.picture_link, allow_redirects=True)
-        open(f"./cache/{self.album_name}.jpg", "wb").write(r.content)
+    def get_albums_of_year():
+        payload = {
+            "api_key": API_KEY,
+            "user": USER,
+            "method": "user.getTopAlbums",
+            "format": "json",
+            "limit": 25,
+            "period": "12month",
+        }
 
-    def delete_picture(self):
-        os.remove(f"./cache/{self.album_name}.jpg")
+        response = LastfmObject.make_request(payload)
+
+        album_list = []
+
+        for album_instance in response.json()["topalbums"]["album"]:
+            album_name = album_instance["name"]
+            album_listen_count = album_instance["playcount"]
+            albums_artist = album_instance["artist"]["name"]
+            album_picture = album_instance["image"][3]["#text"]
+            album_list.append(
+                Album(
+                    name=album_name,
+                    listen_count=album_listen_count,
+                    picture_link=album_picture,
+                    artist_name=albums_artist,
+                )
+            )
+
+        return album_list
