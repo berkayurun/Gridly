@@ -1,9 +1,10 @@
 import json
-import os
+import pathlib, shutil
 import requests
 import image
 import config
 import argparse
+import utils
 from album import Album
 from artist import Artist
 from song import Song
@@ -15,15 +16,13 @@ def get_json_string(response):
 
 
 def create_save_collage(lastfmObjectArray, x, y):
-    os.mkdir('cache')
+    pathlib.Path('./cache').mkdir(parents=True, exist_ok=True)
     for i in lastfmObjectArray:
         i.download_picture()
 
     image.create_collage(lastfmObjectArray, x, y)
 
-    for i in lastfmObjectArray:
-        i.delete_picture()
-    os.rmdir('cache')
+    shutil.rmtree('./cache')
 
 
 def parse_arguments():
@@ -44,6 +43,7 @@ def parse_arguments():
 
 
 def main():
+    utils.register_signal_handler()
     args = parse_arguments()
     size = args.x * args.y
 
