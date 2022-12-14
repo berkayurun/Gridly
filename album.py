@@ -14,11 +14,10 @@ class Album(LastfmObject):
         super().print()
         print(f"Artist Name: {self.artist_name}")
 
-    def get_albums_of_year(X_SIZE, Y_SIZE):
-        size = X_SIZE * Y_SIZE
+    def get_albums_of_year(username, size):
         payload = {
             "api_key": API_KEY,
-            "user": USER,
+            "user": username,
             "method": "user.getTopAlbums",
             "format": "json",
             "limit": size,

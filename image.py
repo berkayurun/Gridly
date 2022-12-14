@@ -4,7 +4,8 @@ from PIL import Image
 
 
 def get_image_name(lastfmObject):
-    return lastfmObject.name + '.jpg'
+    name = lastfmObject.name.replace('/', '_')
+    return name + '.jpg'
 
 
 def create_collage(lastfmObjects, X_SIZE, Y_SIZE):

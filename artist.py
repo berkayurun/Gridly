@@ -6,11 +6,10 @@ USER = config.USER
 
 
 class Artist(LastfmObject):
-    def get_artists_of_year(X_SIZE, Y_SIZE):
-        size = X_SIZE * Y_SIZE
+    def get_artists_of_year(username, size):
         payload = {
             "api_key": API_KEY,
-            "user": USER,
+            "user": username,
             "method": "user.getTopArtists",
             "format": "json",
             "limit": size,

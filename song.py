@@ -14,11 +14,10 @@ class Song(LastfmObject):
         super().print()
         print(f"Artist Name: {self.artist_name}")
 
-    def get_songs_of_year(X_SIZE, Y_SIZE):
-        size = X_SIZE * Y_SIZE
+    def get_songs_of_year(username, size):
         payload = {
             "api_key": API_KEY,
-            "user": USER,
+            "user": username,
             "method": "user.getTopTracks",
             "format": "json",
             "limit": size,

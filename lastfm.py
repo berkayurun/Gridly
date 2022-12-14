@@ -1,6 +1,7 @@
 import requests
 import os
 import config
+import utils
 
 API_KEY = config.API_KEY
 USER = config.USER
@@ -23,11 +24,11 @@ class LastfmObject:
     def download_picture(self):
         if self.picture_link:
             r = requests.get(self.picture_link, allow_redirects=True)
-            open(f"./cache/{self.name}.jpg", "wb").write(r.content)
+            open(f"./cache/{utils.get_image_name(self)}", "wb").write(r.content)
 
     def delete_picture(self):
         try:
-            os.remove(f"./cache/{self.name}.jpg")
+            os.remove(f"./cache/{utils.get_image_name(self)}")
         except:
             None
 
