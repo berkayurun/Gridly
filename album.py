@@ -1,5 +1,6 @@
 from lastfm import LastfmObject
 import config
+from math import sqrt
 
 API_KEY = config.API_KEY
 USER = config.USER
@@ -14,25 +15,34 @@ class Album(LastfmObject):
         super().print()
         print(f"Artist Name: {self.artist_name}")
 
-    def get_albums_of_year(username, size):
+    def get_albums_of_year(username: str, size: int, skip_no_covers: bool):
+        # Gets more than needed, so that if some albums
+        # miss cover, they can be replaced
         payload = {
             "api_key": API_KEY,
             "user": username,
             "method": "user.getTopAlbums",
             "format": "json",
-            "limit": size,
+            "limit": size + round(sqrt(size)),
             "period": "12month",
         }
 
         response = LastfmObject.make_request(payload)
 
         album_list = []
-
+        index = 0
         for album_instance in response.json()["topalbums"]["album"]:
+            if index >= size:
+                break
+
             album_name = album_instance["name"]
             album_listen_count = album_instance["playcount"]
             albums_artist = album_instance["artist"]["name"]
             album_picture = album_instance["image"][3]["#text"]
+
+            if not album_picture and skip_no_covers:
+                continue
+
             album_mbid = album_instance["mbid"]
             album_list.append(
                 Album(
@@ -43,5 +53,7 @@ class Album(LastfmObject):
                     artist_name=albums_artist,
                 )
             )
+
+            index = index + 1
 
         return album_list

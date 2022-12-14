@@ -1,5 +1,6 @@
 import json
-import pathlib, shutil
+import pathlib
+import shutil
 import requests
 import image
 import config
@@ -38,6 +39,8 @@ def parse_arguments():
                         action="store_true")
     parser.add_argument("--song", "-s", help="Create song collage",
                         action="store_true")
+    parser.add_argument("--skip", help="Skip items without covers",
+                        action="store_true")
     args = parser.parse_args()
     return args
 
@@ -48,7 +51,7 @@ def main():
     size = args.x * args.y
 
     if args.album or (not args.artist and not args.song):
-        albums = Album.get_albums_of_year(args.username, size)
+        albums = Album.get_albums_of_year(args.username, size, args.skip)
         create_save_collage(albums, args.x, args.y)
     if args.artist:
         artists = Artist.get_artists_of_year(args.username, size)
