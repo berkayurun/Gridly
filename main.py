@@ -1,4 +1,5 @@
 import json
+import os
 import requests
 import image
 import config
@@ -7,9 +8,6 @@ from album import Album
 from artist import Artist
 from song import Song
 
-X_SIZE = 5
-Y_SIZE = 10
-
 
 def get_json_string(response):
     """Dump response to a string"""
@@ -17,6 +15,7 @@ def get_json_string(response):
 
 
 def create_save_collage(lastfmObjectArray, x, y):
+    os.mkdir('cache')
     for i in lastfmObjectArray:
         i.download_picture()
 
@@ -24,6 +23,7 @@ def create_save_collage(lastfmObjectArray, x, y):
 
     for i in lastfmObjectArray:
         i.delete_picture()
+    os.rmdir('cache')
 
 
 def parse_arguments():
