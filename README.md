@@ -1,2 +1,2 @@
 # Gridly
-Creates grids from Lastfm history
+Gridly creates grids from Last.fm listening history.

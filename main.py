@@ -6,6 +6,9 @@ from album import Album
 from artist import Artist
 from song import Song
 
+X_SIZE = 5
+Y_SIZE = 10
+
 
 def get_json_string(response):
     """Dump response to a string"""
@@ -16,16 +19,16 @@ def create_save_collage(lastfmObjectArray):
     for i in lastfmObjectArray:
         i.download_picture()
 
-    image.create_collage(lastfmObjectArray)
+    image.create_collage(lastfmObjectArray, X_SIZE, Y_SIZE)
 
     for i in lastfmObjectArray:
         i.delete_picture()
 
 
 def main():
-    albums = Album.get_albums_of_year()
-    artists = Artist.get_artists_of_year()
-    songs = Song.get_songs_of_year()
+    albums = Album.get_albums_of_year(X_SIZE, Y_SIZE)
+    artists = Artist.get_artists_of_year(X_SIZE, Y_SIZE)
+    songs = Song.get_songs_of_year(X_SIZE, Y_SIZE)
 
     create_save_collage(albums)
     create_save_collage(artists)

@@ -4,14 +4,16 @@ import config
 API_KEY = config.API_KEY
 USER = config.USER
 
+
 class Artist(LastfmObject):
-    def get_artists_of_year():
+    def get_artists_of_year(X_SIZE, Y_SIZE):
+        size = X_SIZE * Y_SIZE
         payload = {
             "api_key": API_KEY,
             "user": USER,
             "method": "user.getTopArtists",
             "format": "json",
-            "limit": 25,
+            "limit": size,
             "period": "12month",
         }
 
@@ -23,9 +25,11 @@ class Artist(LastfmObject):
             artist_name = artist_instance["name"]
             artist_listen_count = artist_instance["playcount"]
             artist_picture = artist_instance["image"][3]["#text"]
+            artist_mbid = artist_instance["mbid"]
             artist_list.append(
                 Artist(
                     name=artist_name,
+                    mbid=artist_mbid,
                     listen_count=artist_listen_count,
                     picture_link=artist_picture,
                 )

@@ -6,21 +6,22 @@ USER = config.USER
 
 
 class Song(LastfmObject):
-    def __init__(self, name, listen_count, picture_link, artist_name):
-        super().__init__(name, listen_count, picture_link)
+    def __init__(self, name, mbid, listen_count, picture_link, artist_name):
+        super().__init__(name, mbid, listen_count, picture_link)
         self.artist_name = artist_name
 
     def print(self):
         super().print()
         print(f"Artist Name: {self.artist_name}")
 
-    def get_songs_of_year():
+    def get_songs_of_year(X_SIZE, Y_SIZE):
+        size = X_SIZE * Y_SIZE
         payload = {
             "api_key": API_KEY,
             "user": USER,
             "method": "user.getTopTracks",
             "format": "json",
-            "limit": 25,
+            "limit": size,
             "period": "12month",
         }
 
@@ -33,9 +34,11 @@ class Song(LastfmObject):
             song_listen_count = song_instance["playcount"]
             songs_artist = song_instance["artist"]["name"]
             song_picture = song_instance["image"][3]["#text"]
+            song_mbid = song_instance["mbid"]
             song_list.append(
                 Song(
                     name=song_name,
+                    mbid=song_mbid,
                     listen_count=song_listen_count,
                     picture_link=song_picture,
                     artist_name=songs_artist,
