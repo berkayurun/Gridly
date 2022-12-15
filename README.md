@@ -5,6 +5,7 @@ Gridly creates grids from Last.fm listening history. It creates different sized 
 
 #### How to install
 Make sure to have Python installed. In addition to that, following two libraries must be installed:
+
     - Pillow
     - requests
     - spotipy
