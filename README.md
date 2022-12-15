@@ -1,5 +1,5 @@
 ## Gridly
-![alt text](./examples/Album.png)
+![alt text](./examples/Album.jpeg)
 Gridly creates grids from Last.fm listening history.
 
 #### How to install
