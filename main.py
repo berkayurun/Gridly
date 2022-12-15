@@ -33,8 +33,8 @@ def parse_arguments():
     parser.add_argument("y", help="Vertical size of the collage",
                         type=int)
     parser.add_argument("username", help="Username")
-    parser.add_argument("--album", "-a", help="Create album collage",
-                        action="store_true")
+    # parser.add_argument("--album", "-a", help="Create album collage",
+    #                    action="store_true")
     # parser.add_argument("--artist", "-b", help="Create artist collage",
     #                    action="store_true")
     # parser.add_argument("--song", "-s", help="Create song collage",
@@ -68,9 +68,10 @@ def main():
     args = parse_arguments()
     size = args.x * args.y
 
-    if args.album or (not args.artist and not args.song):
-        albums = Album.get_albums_of_year(args.username, size, args.skip)
-        create_save_collage(albums, args.x, args.y)
+    # if args.album or (not args.artist and not args.song):
+
+    albums = Album.get_albums_of_year(args.username, size, args.skip)
+    create_save_collage(albums, args.x, args.y)
     # if args.artist:
     #    artists = Artist.get_artists_of_year(args.username, size)
     #    create_save_collage(artists, args.x, args.y)
