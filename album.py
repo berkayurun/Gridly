@@ -1,9 +1,6 @@
 from lastfm import LastfmObject
-import config
 from math import sqrt
-
-API_KEY = config.API_KEY
-USER = config.USER
+import utils
 
 
 class Album(LastfmObject):
@@ -16,6 +13,8 @@ class Album(LastfmObject):
         print(f"Artist Name: {self.artist_name}")
 
     def get_albums_of_year(username: str, size: int, skip_no_covers: bool):
+        API_KEY = utils.get_api_key()
+
         # Gets more than needed, so that if some albums
         # miss cover, they can be replaced
         payload = {

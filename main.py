@@ -1,9 +1,9 @@
 import json
+import os
 import pathlib
 import shutil
 import requests
 import image
-import config
 import argparse
 import utils
 from album import Album
@@ -45,7 +45,25 @@ def parse_arguments():
     return args
 
 
+def config():
+    if os.path.exists('./config/config.txt'):
+        with open('./config/config.txt', 'r') as f:
+            config.API_KEY = f.readline()
+        return
+
+    if not os.path.exists('./config'):
+        os.mkdir('./config')
+
+    print('First time config is running...')
+    api_key = input("Please input your API key: ")
+    with open('./config/config.txt', 'w') as f:
+        f.write(f"{api_key}")
+
+    return
+
+
 def main():
+    config()
     utils.register_signal_handler()
     args = parse_arguments()
     size = args.x * args.y

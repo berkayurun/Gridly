@@ -1,10 +1,6 @@
 import requests
 import os
-import config
 import utils
-
-API_KEY = config.API_KEY
-USER = config.USER
 
 
 class LastfmObject:
@@ -34,10 +30,8 @@ class LastfmObject:
             None
 
     def make_request(parameters):
-        headers = {"user-agent": USER}
 
         return requests.get(
             "https://ws.audioscrobbler.com/2.0/",
-            headers=headers,
             params=parameters
         )
