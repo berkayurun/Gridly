@@ -13,6 +13,6 @@ While in the root folder, they can be installed using the following command:
 With Python and the requirements installed, you are good to go!
 
 #### How to use
-TODO, for now you can run the program with help flag:
+TODO, for now you can run the program with the help flag:
 
     python main.py -h
