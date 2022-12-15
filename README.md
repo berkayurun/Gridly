@@ -4,7 +4,7 @@ Gridly creates grids from Last.fm listening history.
 ![alt text](./examples/Album.jpeg)
 
 #### How to install
-Make sure to have Python installed. In addition to that, the following two libraries must be installed:
+Make sure to have Python installed. In addition to that, following two libraries must be installed:
 - Pillow
 - requests
 
