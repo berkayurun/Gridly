@@ -21,7 +21,7 @@ def create_collage(lastfmObjects, X_SIZE, Y_SIZE):
         for x in range(0, X_SIZE):
             try:
                 im_buff = Image.open(get_image_name(
-                    lastfmObjects[y * X_SIZE + x]))
+                    lastfmObjects[y * X_SIZE + x])).resize((width, height))
             except:
                 im_buff = Image.new('RGB', (width, height), 'black')
             im.paste(im_buff, (x * width, y * height))

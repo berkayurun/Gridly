@@ -33,51 +33,61 @@ def parse_arguments():
     parser.add_argument("y", help="Vertical size of the collage",
                         type=int)
     parser.add_argument("username", help="Username")
-    # parser.add_argument("--album", "-a", help="Create album collage",
-    #                    action="store_true")
-    # parser.add_argument("--artist", "-b", help="Create artist collage",
-    #                    action="store_true")
-    # parser.add_argument("--song", "-s", help="Create song collage",
-    #                    action="store_true")
+    parser.add_argument("--album", "-a", help="Create album collage",
+                        action="store_true")
+    parser.add_argument("--artist", "-b", help="Create artist collage",
+                        action="store_true")
+    parser.add_argument("--song", "-s", help="Create song collage",
+                        action="store_true")
     parser.add_argument("--skip", help="Skip items without covers",
+                        action="store_true")
+    parser.add_argument("--config", '-c', help="Configure the config file",
                         action="store_true")
     args = parser.parse_args()
     return args
 
 
-def config():
-    if os.path.exists('./config/config.txt'):
-        with open('./config/config.txt', 'r') as f:
-            config.API_KEY = f.readline()
+def config(reconfig=False):
+    if os.path.exists('./config/config.txt') and not reconfig:
         return
+    elif os.path.exists('./config/config.txt') and reconfig:
+        os.remove('./config/config.txt')
 
     if not os.path.exists('./config'):
         os.mkdir('./config')
 
     print('First time config is running...')
-    api_key = input("Please input your API key: ")
+    api_key = input("Please input your Last.fm API key: ")
+    client_id = input("Please input your Spotify client id: ")
+    client_secret = input("Please input your Spotify client secret: ")
     with open('./config/config.txt', 'w') as f:
-        f.write(f"{api_key}")
+        f.write(f"{api_key}\n")
+        f.write(f"{client_id}\n")
+        f.write(f"{client_secret}\n")
+
+    print('Config completed...')
+    if reconfig:
+        exit(0)
 
     return
 
 
 def main():
-    config()
     utils.register_signal_handler()
     args = parse_arguments()
+    config(args.config)
+    print('Collage is being created...')
     size = args.x * args.y
 
-    # if args.album or (not args.artist and not args.song):
-
-    albums = Album.get_albums_of_year(args.username, size, args.skip)
-    create_save_collage(albums, args.x, args.y)
-    # if args.artist:
-    #    artists = Artist.get_artists_of_year(args.username, size)
-    #    create_save_collage(artists, args.x, args.y)
-    # if args.song:
-    #    songs = Song.get_songs_of_year(args.username, size)
-    #    create_save_collage(songs, args.x, args.y)
+    if args.album or (not args.artist and not args.song):
+        albums = Album.get_albums_of_year(args.username, size, args.skip)
+        create_save_collage(albums, args.x, args.y)
+    if args.artist:
+        artists = Artist.get_artists_of_year(args.username, size, args.skip)
+        create_save_collage(artists, args.x, args.y)
+    if args.song:
+        songs = Song.get_songs_of_year(args.username, size, args.skip)
+        create_save_collage(songs, args.x, args.y)
 
 
 main()

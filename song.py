@@ -1,5 +1,6 @@
 from lastfm import LastfmObject
 from math import sqrt
+import utils
 
 
 class Song(LastfmObject):
@@ -11,7 +12,8 @@ class Song(LastfmObject):
         super().print()
         print(f"Artist Name: {self.artist_name}")
 
-    def get_songs_of_year(username, size):
+    def get_songs_of_year(username, size, skip_no_covers
+                          ):
         API_KEY = utils.get_api_key()
         # Gets more than needed, so that if some albums
         # miss cover, they can be replaced
@@ -34,9 +36,9 @@ class Song(LastfmObject):
             song_name = song_instance["name"]
             song_listen_count = song_instance["playcount"]
             songs_artist = song_instance["artist"]["name"]
-            song_picture = song_instance["image"][3]["#text"]
-
-            if not album_picture and skip_no_covers:
+            song_picture = LastfmObject.get_cover_from_spotify(song_name,
+                                                               'track', songs_artist)
+            if not song_picture and skip_no_covers:
                 continue
 
             song_mbid = song_instance["mbid"]
@@ -50,4 +52,5 @@ class Song(LastfmObject):
                 )
             )
 
+            index = index + 1
         return song_list
