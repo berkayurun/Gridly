@@ -14,9 +14,27 @@ While in the root folder, they can be installed using the following command:
 
     pip install -r requirements.txt
 
-With Python and the requirements installed, you are good to go!
+In first run Last.fm API key (https://www.last.fm/api/account/create), Spotify client ID and secret (https://developer.spotify.com/dashboard) will be asked.
+ 
+After this configuration you are good to go!
 
 #### How to use
-TODO, for now you can run the program with the help flag:
+Gridly takes three positional arguments.
 
-    python main.py -h
+- x             Horizontal size of the collage
+- y             Vertical size of the collage
+- username      Last.fm username
+
+Here is an example run. Without extra arguments Gridly creates a collage for users top albums from the last year.
+
+    python gridly.py
+
+With optional arguments it is possible to create collages for artists and songs. It is also possible to skip items that are missing artwork.
+
+  -h, --help    show this help message and exit
+  --album, -a   Create album collage
+  --artist, -b  Create artist collage
+  --song, -s    Create song collage
+  --skip        Skip items without covers
+  --config, -c  Configure the config file
+
