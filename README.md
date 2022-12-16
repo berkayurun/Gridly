@@ -27,14 +27,14 @@ Gridly takes three positional arguments.
 
 Here is an example run. Without extra arguments Gridly creates a collage for users top albums from the last year.
 
-    python gridly.py
+    python gridly.py 5 5 example_user
 
 With optional arguments it is possible to create collages for artists and songs. It is also possible to skip items that are missing artwork.
 
-  -h, --help    show this help message and exit
-  --album, -a   Create album collage
-  --artist, -b  Create artist collage
-  --song, -s    Create song collage
-  --skip        Skip items without covers
-  --config, -c  Configure the config file
+    -h, --help    show this help message and exit
+    --album, -a   Create album collage
+    --artist, -b  Create artist collage
+    --song, -s    Create song collage
+    --skip        Skip items without covers
+    --config, -c  Configure the config file
 
