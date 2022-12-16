@@ -21,9 +21,9 @@ After this configuration you are good to go!
 #### How to use
 Gridly takes three positional arguments.
 
-- x             Horizontal size of the collage
-- y             Vertical size of the collage
-- username      Last.fm username
+    x             Horizontal size of the collage
+    y             Vertical size of the collage
+    username      Last.fm username
 
 Here is an example run. Without extra arguments Gridly creates a collage for users top albums from the last year.
 
