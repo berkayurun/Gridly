@@ -24,18 +24,18 @@ def get_api_key():
         return API_KEY
 
 
-def get_client_id():
+def get_client_id() -> str:
     if os.path.exists('./config/config.txt'):
         with open('./config/config.txt', 'r') as f:
             f.readline()
-            client_id = f.readline()
+            client_id = f.readline().strip()
         return client_id
 
 
-def get_client_secret():
+def get_client_secret() -> str:
     if os.path.exists('./config/config.txt'):
         with open('./config/config.txt', 'r') as f:
             f.readline()
             f.readline()
-            client_secret = f.readline()
+            client_secret = f.readline().strip()
         return client_secret
