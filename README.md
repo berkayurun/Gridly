@@ -35,6 +35,7 @@ With optional arguments it is possible to create collages for artists and songs.
     --album, -a   Create album collage
     --artist, -b  Create artist collage
     --song, -s    Create song collage
+    --name, -n    Print names
     --skip        Skip items without covers
     --exclude EXCLUDE [EXCLUDE ...], -e EXCLUDE [EXCLUDE ...] 
                   Exclude artists

@@ -41,6 +41,8 @@ def parse_arguments():
                         action="store_true")
     parser.add_argument("--song", "-s", help="Create song collage",
                         action="store_true")
+    parser.add_argument("--name", "-n", help="Print names",
+                        action="store_true")
     parser.add_argument("--skip", help="Skip items without covers",
                         action="store_true")
     parser.add_argument("--exclude", '-e', help="Exclude artists",
@@ -82,6 +84,9 @@ def main():
     config(args.config)
     print('Collages are being created...')
     size = args.x * args.y
+
+    if args.name:
+        image.PRINT_NAMES = True
 
     if (args.album or args.all) or (not args.artist and not args.song):
         albums = Album.get_albums_of_year(
