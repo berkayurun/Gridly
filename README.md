@@ -1,5 +1,7 @@
 ## Gridly
-Gridly creates grids from Last.fm listening history. It creates different sized collages for your top albums, artists or songs.
+Gridly creates grids from Last.fm listening history. It creates collages for your top albums, artists or songs.
+
+You can configure it to create different sized collages, print item names and additionally exclude artists.
 
 ![alt text](./examples/Album.jpeg)
 
