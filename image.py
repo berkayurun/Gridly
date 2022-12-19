@@ -48,14 +48,15 @@ def create_collage(lastfmObjects, X_SIZE, Y_SIZE):
                 im_buff = Image.open(get_image_name(
                     obj))
 
-                if im_buff.format == 'PNG':
+                if im_buff.format != 'RGB':
                     im_buff = im_buff.convert('RGB')
 
                 im_buff = im_buff.resize((width, height))
 
                 if PRINT_NAMES:
                     add_text(obj.name, im_buff)
-            except:
+            except Exception as e:
+                print(e)
                 im_buff = Image.new('RGB', (width, height), 'black')
             im.paste(im_buff, (x * width, y * height))
 
