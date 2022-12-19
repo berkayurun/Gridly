@@ -1,10 +1,9 @@
 from lastfm import LastfmObject
-from math import sqrt
 import utils
 
 
 class Artist(LastfmObject):
-    def get_artists_of_year(username, size, skip_no_covers
+    def get_artists_of_year(username, size, skip_no_covers, exclude_list
                             ):
         API_KEY = utils.get_api_key()
         # Gets more than needed, so that if some albums
@@ -14,7 +13,7 @@ class Artist(LastfmObject):
             "user": username,
             "method": "user.getTopArtists",
             "format": "json",
-            "limit": size + round(sqrt(size)),
+            "limit": 2 * size,
             "period": "12month",
         }
 
@@ -27,6 +26,10 @@ class Artist(LastfmObject):
                 break
 
             artist_name = artist_instance["name"]
+
+            if artist_name in exclude_list:
+                continue
+
             artist_listen_count = artist_instance["playcount"]
             artist_picture = LastfmObject.get_cover_from_spotify(
                 artist_name, 'artist')

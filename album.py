@@ -1,5 +1,4 @@
 from lastfm import LastfmObject
-from math import sqrt
 import utils
 
 
@@ -12,7 +11,7 @@ class Album(LastfmObject):
         super().print()
         print(f"Artist Name: {self.artist_name}")
 
-    def get_albums_of_year(username: str, size: int, skip_no_covers: bool):
+    def get_albums_of_year(username: str, size: int, skip_no_covers: bool, exclude_list):
         API_KEY = utils.get_api_key()
 
         # Gets more than needed, so that if some albums
@@ -22,7 +21,7 @@ class Album(LastfmObject):
             "user": username,
             "method": "user.getTopAlbums",
             "format": "json",
-            "limit": size + round(sqrt(size)),
+            "limit": 2 * size,
             "period": "12month",
         }
 
@@ -37,6 +36,10 @@ class Album(LastfmObject):
             album_name = album_instance["name"]
             album_listen_count = album_instance["playcount"]
             albums_artist = album_instance["artist"]["name"]
+
+            if albums_artist in exclude_list:
+                continue
+
             album_picture = album_instance["image"][3]["#text"]
 
             if not album_picture and skip_no_covers:

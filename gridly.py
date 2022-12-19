@@ -43,6 +43,8 @@ def parse_arguments():
                         action="store_true")
     parser.add_argument("--skip", help="Skip items without covers",
                         action="store_true")
+    parser.add_argument("--exclude", '-e', help="Exclude the artists",
+                        nargs='+', type=str)
     parser.add_argument("--config", '-c', help="Configure the config file",
                         action="store_true")
     args = parser.parse_args()
@@ -78,17 +80,20 @@ def main():
     utils.register_signal_handler()
     args = parse_arguments()
     config(args.config)
-    print('Collage is being created...')
+    print('Collages are being created...')
     size = args.x * args.y
 
     if (args.album or args.all) or (not args.artist and not args.song):
-        albums = Album.get_albums_of_year(args.username, size, args.skip)
+        albums = Album.get_albums_of_year(
+            args.username, size, args.skip, args.exclude)
         create_save_collage(albums, args.x, args.y)
     if args.artist or args.all:
-        artists = Artist.get_artists_of_year(args.username, size, args.skip)
+        artists = Artist.get_artists_of_year(
+            args.username, size, args.skip, args.exclude)
         create_save_collage(artists, args.x, args.y)
     if args.song or args.all:
-        songs = Song.get_songs_of_year(args.username, size, args.skip)
+        songs = Song.get_songs_of_year(
+            args.username, size, args.skip, args.exclude)
         create_save_collage(songs, args.x, args.y)
 
 
