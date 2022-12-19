@@ -43,7 +43,7 @@ def parse_arguments():
                         action="store_true")
     parser.add_argument("--skip", help="Skip items without covers",
                         action="store_true")
-    parser.add_argument("--exclude", '-e', help="Exclude the artists",
+    parser.add_argument("--exclude", '-e', help="Exclude artists",
                         nargs='+', type=str)
     parser.add_argument("--config", '-c', help="Configure the config file",
                         action="store_true")
