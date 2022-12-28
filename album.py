@@ -37,10 +37,13 @@ class Album(LastfmObject):
             album_listen_count = album_instance["playcount"]
             albums_artist = album_instance["artist"]["name"]
 
-            if albums_artist in exclude_list:
-                continue
+            if exclude_list:
+                if albums_artist in exclude_list:
+                    continue
 
             album_picture = album_instance["image"][3]["#text"]
+            # album_picture = LastfmObject.get_cover_from_spotify(
+            #    album_name, 'album', albums_artist)
 
             if not album_picture and skip_no_covers:
                 continue

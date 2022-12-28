@@ -36,8 +36,9 @@ class Song(LastfmObject):
             song_listen_count = song_instance["playcount"]
             songs_artist = song_instance["artist"]["name"]
 
-            if songs_artist in exclude_list:
-                continue
+            if exclude_list:
+                if songs_artist in exclude_list:
+                    continue
 
             song_picture = LastfmObject.get_cover_from_spotify(song_name,
                                                                'track', songs_artist)

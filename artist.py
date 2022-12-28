@@ -27,8 +27,9 @@ class Artist(LastfmObject):
 
             artist_name = artist_instance["name"]
 
-            if artist_name in exclude_list:
-                continue
+            if exclude_list:
+                if artist_name in exclude_list:
+                    continue
 
             artist_listen_count = artist_instance["playcount"]
             artist_picture = LastfmObject.get_cover_from_spotify(
